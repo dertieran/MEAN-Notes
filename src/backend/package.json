@@ -1,0 +1,17 @@
+{
+  "name": "MEAN-Notes-Server",
+  "version": "0.1.0",
+  "description": "The MEAN-Notes-Server",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "glob": "^6.0.1",
+    "mongodb": "^2.0.49"
+  }
+}
