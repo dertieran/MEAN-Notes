@@ -1,0 +1,9 @@
+node_modules/
+bower_components/
+.DS_Store
+dist/
+npm-debug.log
+Documentation/Anfangsdokument/~*.docx
+Documentation/Enddokument/~*.docx
+/config.json
+/config.server.json

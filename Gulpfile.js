@@ -5,7 +5,10 @@ var gulp 	 = require('gulp'),
 	es = require('event-stream'),
 	changed = require('gulp-changed'),
 	runSequence = require('run-sequence'),
-    indent = require("gulp-indent");
+    indent = require("gulp-indent"),
+    Webpack = require('webpack'),
+    path = require('path'),
+    Gutil = require('gulp-util');
 
 var distServer = 'dist/';
 var distClient = 'dist/client/';
@@ -33,7 +36,7 @@ gulp.task('copyBuildStage', function(){
 });
 
 gulp.task('compile', ['copyBuildStage'], function(){
-	return gulp.src([temp + '/**/*.js', '!**/node_modules/**', '!**/frontend/libs/**'])
+	return gulp.src([temp + '/**/*.js', '!**/node_modules/**', '!**/frontend/**'])
 		.pipe(changed(distServer))
 		.pipe(sourcemaps.init())
 			.pipe(babel({
@@ -47,13 +50,12 @@ gulp.task('compile', ['copyBuildStage'], function(){
 gulp.task('copyToDist', ['copyBuildStage', 'compile'],  function(){
 	return es.merge(gulp.src(temp + 'backend/**')
 						.pipe(gulp.dest(distServer)),
-
-					gulp.src(temp + 'frontend/**')
+			        gulp.src([temp + 'frontend/**', '!' + temp + 'frontend/**/*js'])
 						.pipe(gulp.dest(distClient))
-				);
+				    );
 });
 
-gulp.task('clean:temp', ['copyToDist'], function(){
+gulp.task('clean:temp', ['copyToDist', 'webpack'], function(){
 	return del(['dist/temp']);
 })
 
@@ -71,8 +73,36 @@ gulp.task('copyDependecies', function(){
 				  'node_modules/angular-material/angular-material.min.js',
                   'node_modules/angular-route/angular-route.min.js',
                   'node_modules/angular-sanitize/angular-sanitize.min.js'])
-			.pipe(gulp.dest(distClient + 'libs/angular/'))
+			.pipe(gulp.dest(temp + 'frontend/libs/angular/'))
 	);
+});
+
+gulp.task("webpack", ['copyBuildStage'], function(callback) {
+    // run webpack
+    Webpack({
+        entry : path.join(__dirname, temp, 'frontend', 'modules', 'main.js'),
+        output : {
+            path : path.join(__dirname, 'dist', 'client'),
+            filename : 'app.js'
+        },
+        module: {
+            loaders: [{
+                loader: "babel-loader",
+                test: /\.js$/,
+                query : {
+                    presets: ['es2015']
+                },
+                include: [
+                    path.join(__dirname, temp, 'frontend'),
+                ],
+            }],
+        },
+        devtool : '#source-map',
+    }, function(err, stats) {
+        if(err) throw new Gutil.PluginError("webpack", err);
+        Gutil.log("[webpack]", stats.toString());
+        callback();
+    });
 });
 
 gulp.task('indent', function(){
