@@ -1,0 +1,27 @@
+
+.wrapper {
+    overflow: auto;
+    padding: 1rem;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+md-grid-list figure {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+app-note-card {
+    overflow: auto;
+    width: 100%;
+}
+
+md-grid-list md-card-content, md-grid-list md-card-content div {
+    overflow: auto;
+}

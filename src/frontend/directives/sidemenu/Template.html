@@ -1,61 +1,18 @@
-<div ng-controller="AppCtrl" layout="column" style="height:500px;" ng-cloak="" class="sidenavdemoBasicUsage" ng-app="MyApp">
+<md-sidenav class="md-sidenav-left" md-component-id="menu-left" md-is-locked-open="true" md-is-open="true">
 
-  <section layout="row" flex="">
-
-
-    <md-content flex="" layout-padding="">
-
-      <div layout="column" layout-fill="" layout-align="top center">
-        <p>
-        Content
-        </p>
-        <p>
-        More Content
-        </p>
-
-
-
-
-
-
-        <div>
-          <md-button ng-click="toggleRight()" ng-hide="isOpenRight()" class="md-primary">
-            Open SideNav
-          </md-button>
-        </div>
-      </div>
-
-      <div flex=""></div>
-
-    </md-content>
-
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="right23">
-
-      <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Sidenav Left</h1>
-      </md-toolbar>
-      <md-content ng-controller="RightCtrl" layout-padding="">
-        <form>
-          <md-input-container>
-            <label for="testInput">Add Category</label>
-            <input type="text" id="testInput" ng-model="data" md-autofocus="">
-          </md-input-container>
-        </form>
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">MEAN-Notes</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+            <md-input-container>
+                <label for="testInput">Add Category</label>
+                <input type="text" name="testInput" ng-model="data" md-autofocus>
+            </md-input-container>
 
         <md-subheader class="md-no-sticky">Categories</md-subheader>
-  <md-list-item ng-repeat="topping in toppings">
-    <p> {{ topping.name }} </p>
-    <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
-  </md-list-item>
-
-
-        <md-button ng-click="close()" class="md-primary">
-          Close Sidenav
-        </md-button>
-      </md-content>
-
-    </md-sidenav>
-
-  </section>
-
-</div>
+        <md-list-item ng-repeat="category in categories">
+            <p> {{ category.name }} </p>
+            <md-checkbox class="md-secondary" ng-model="category.wanted"></md-checkbox>
+        </md-list-item>
+    </md-content>
+</md-sidenav>

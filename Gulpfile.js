@@ -8,6 +8,8 @@ var gulp 	 = require('gulp'),
     indent = require("gulp-indent"),
     Webpack = require('webpack'),
     path = require('path'),
+    insert = require('gulp-insert'),
+    glob = require('glob'),
     Gutil = require('gulp-util');
 
 var distServer = 'dist/';
@@ -19,9 +21,22 @@ gulp.task('clean', function() {
 });
 
 gulp.task('copyBuildStage', function(){
-	return es.merge(gulp.src(['src/**/*.*', '!src/shared/**/*.js'])
-						.pipe(changed(distServer))
+	return es.merge(gulp.src(['src/**/*.*', '!src/shared/**/*.js', '!src/frontend/modules/directives.js'])
 						.pipe(gulp.dest(temp)),
+
+                    gulp.src(['src/frontend/modules/directives.js'])
+                        .pipe(insert.append(((pattern) => {
+                            var files = glob.sync(pattern);
+                            var source = files.reduce((prev, next) => {
+                                console.log(next);
+                                return prev + 'import \'' + path.relative('src/frontend/modules/', next) + '\';\n';
+                            }, '\n');
+
+                            console.log(source);
+
+                            return source;
+                        })('src/frontend/directives/**/*Directive.js')))
+                        .pipe(gulp.dest(temp + 'frontend/modules')),
 
                     gulp.src(['config.json', 'config.server.json'])
 						.pipe(changed(distServer))
@@ -95,6 +110,9 @@ gulp.task("webpack", ['copyBuildStage'], function(callback) {
                 include: [
                     path.join(__dirname, temp, 'frontend'),
                 ],
+                exclude: [
+                    path.join(__dirname, temp, 'frontend/libs'),
+                ]
             }],
         },
         devtool : '#source-map',

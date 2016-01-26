@@ -1,8 +1,8 @@
-import './angular.js';
+import {　application } from './angular.js';
 import './directives.js';
 import { Router, RouteController } from './Router.js';
 
-angular.module('app-mmi').config(function($routeProvider, $mdThemingProvider) {
+application.config(function($routeProvider, $mdThemingProvider) {
 
     $mdThemingProvider.theme('default')
         .primaryPalette('blue-grey', {
