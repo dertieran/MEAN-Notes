@@ -8,7 +8,7 @@ import Glob from 'glob';
 import bodyParser from 'body-parser';
 
 import { Make, hasPrototype } from './make.js';
-import Controller from '../prototypes/controller.js';
+import Controller from '../prototypes/Controller.js';
 import ResponseHandler from '../prototypes/ResponseHandler.js';
 // import AuthorizeManager from './AuthorizeManager.js';
 

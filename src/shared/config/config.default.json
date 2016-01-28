@@ -1,21 +1,7 @@
 {
     "db.host":"localhost",
     "db.port":27017,
-    "db.name":"TecDemo",
+    "db.name":"mean-notes",
     "server.host":"localhost",
-    "server.port":3030,
-    "authFlow.github.accessTokenUrl" : "https://github.com/login/oauth/access_token",
-    "authFlow.github.authUrl" : "https://github.com/login/oauth/authorize",
-    "authFlow.github.clientId" : "59b0a9d691c006819f63",
-    "authFlow.github.scope" : "user",
-    "authFlow.github.redirectUrl" : "http://localhost:3030/oauth/callback.html",
-    "authFlow.github.userResource" : "https://api.github.com/user",
-    "authFlow.google.authUrl" : "https://accounts.google.com/o/oauth2/auth",
-    "authFlow.google.validationUrl" : "https://www.googleapis.com/oauth2/v1/tokeninfo",
-    "authFlow.google.scope" : "email profile",
-    "authFlow.google.redirectUrl" : "http://localhost:3030/oauth/callback.html",
-    "authFlow.google.clientId" : "1075540561942-vchi1ljb9a87it0c867894n3gla3jmcc.apps.googleusercontent.com",
-    "authFlow.google.userResource" : "https://www.googleapis.com/plus/v1/people/me",
-    "authFlow.google.verifyUrl" : "https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=",
-    "serverResponse.functionTemplate" : "../templates/function.html"
+    "server.port":3030
 }
