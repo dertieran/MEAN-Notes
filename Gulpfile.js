@@ -29,7 +29,7 @@ gulp.task('copyBuildStage', function(){
                             var files = glob.sync(pattern);
                             var source = files.reduce((prev, next) => {
                                 console.log(next);
-                                return prev + 'import \'' + path.relative('src/frontend/modules/', next) + '\';\n';
+                                return prev + ('import \'' + path.relative('src/frontend/modules/', next)).replace(/\\/g, '/') + '\';\n';
                             }, '\n');
 
                             console.log(source);
