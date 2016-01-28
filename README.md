@@ -10,9 +10,14 @@ Forget about OneNote, Evernote and iNote (or whatever Apple calls their Note Ser
 Stay calm and follow us on Facebook, Twitter, Instagram, Stackoverflow, 4chan, Steam and all the other platforms!
 
 ### Requirements
+- [Node.js (with NPM)](https://www.npmjs.com)
+- [MongoDB](https://www.mongodb.org/)
 
-Coming soon!
+
 
 ### Instructions to start
-
-Coming soon!
+- run `npm run setup` to install all required files
+- run `gulp` to build the dist directory
+- run MongoDB
+- run `npm run server`
+- [Visit your localhost on Port 3030](http://localhost:3030/)
