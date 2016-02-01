@@ -4,15 +4,21 @@
         <h1 class="md-toolbar-tools">MEAN-Notes</h1>
     </md-toolbar>
     <md-content layout-padding>
-            <md-input-container>
-                <label for="testInput">Add Category</label>
-                <input type="text" name="testInput" ng-model="data" md-autofocus>
+        <div layout="column">
+            <md-input-container flex>
+                <label>Category Name</label>
+                <md-icon>text_fields</md-icon>
+                <input type="text" ng-model="newCategory.name">
             </md-input-container>
-
+            <div flex label="Category Color" md-color-picker value="newCategory.color" open-on-input="true"></div>
+            <md-button class="md-raised md-primary" ng-click="add()">Add Category</md-button>
+        </div>
+        <md-divider md-inset></md-divider>
         <md-subheader class="md-no-sticky">Categories</md-subheader>
         <md-list-item ng-repeat="category in categories">
-            <p> {{ category.name }} </p>
-            <md-checkbox class="md-secondary" ng-model="category.wanted"></md-checkbox>
+            <md-checkbox ng-model="category.selected"></md-checkbox>
+            <p>{{category.name}}</p>
+            <md-icon class="md-secondary" ng-click="doSecondaryAction($event)" aria-label="Chat">edit</md-icon>
         </md-list-item>
     </md-content>
 </md-sidenav>

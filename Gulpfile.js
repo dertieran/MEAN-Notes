@@ -82,6 +82,13 @@ gulp.task('copyDependecies', function(){
         gulp.src(['node_modules/octicons/octicons/*.*'])
             .pipe(gulp.dest(distClient + 'stylesheets/octicons/')),
 
+        gulp.src(['node_modules/md-color-picker/dist/mdColorPicker.min.css'])
+            .pipe(gulp.dest(distClient + 'stylesheets/')),
+
+        gulp.src(['node_modules/md-color-picker/dist/mdColorPicker.min.js',
+                  'node_modules/tinycolor2/dist/tinycolor-min.js'])
+            .pipe(gulp.dest(distClient + 'libs/md-color/')),
+
 		gulp.src(['node_modules/angular/angular.min.js',
 				  'node_modules/angular-aria/angular-aria.min.js',
 				  'node_modules/angular-animate/angular-animate.min.js',
