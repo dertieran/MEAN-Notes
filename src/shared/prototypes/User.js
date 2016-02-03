@@ -1,9 +1,14 @@
 import bcrypt from 'bcrypt-nodejs';
+import { Make } from '../modules/make.js';
+import Logger from './Logger.js';
+import Model from './Model.js';
+
+let logger = Make(Logger)('User Constructor');
 
 /**
 * @lends User.prototype
 */
-let User = {
+let User = Make({
     /**
     * @type {string}
     */
@@ -20,29 +25,28 @@ let User = {
     _make : function(){
         bcrypt.genSalt(5, function(error, salt) {
             if (error){
-                return error;
+                logger.error(error);
+            } else {
+                bcrypt.hash(this.password, salt, null, function(error, hash) {
+                    if (error){
+                        logger.error(error);
+                    } else {
+                        this.password = hash;
+                    }
+                });
             }
-
-            bcrypt.hash(this.password, salt, null, function(error, hash) {
-                if (error){
-                    return error;
-                }
-
-                this.password = hash;
-            });
         });
     },
 
     verifyPassword : function(password, callback) {
         bcrypt.compare(password, this.password, function(error, isMatch) {
             if (error){
-                 return callback(error);
+                return callback(error);
             }
             callback(null, isMatch);
         });
     }
 
-
-};
+}, Model).get();
 
 export default User;
