@@ -6,6 +6,8 @@ import Express from 'express';
 import Path from 'path';
 import Glob from 'glob';
 import bodyParser from 'body-parser';
+import passport from 'passport';
+import {BasicStrategy} from 'passport-http';
 
 import { Make, hasPrototype } from './make.js';
 import Controller from '../prototypes/Controller.js';

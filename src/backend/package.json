@@ -9,9 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "glob": "^6.0.1",
-    "mongodb": "^2.0.49"
+    "mongodb": "^2.0.49",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0"
   }
 }
