@@ -1,5 +1,6 @@
+import { application } from '../../modules/angular.js';
 
-angular.module('app-mmi').directive('appPageSignin', function(){
+application.directive('appPageSignin', function(){
 
     return {
         restrict:'E',

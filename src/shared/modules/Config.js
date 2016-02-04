@@ -3,7 +3,7 @@ import { ConfigLoader } from './ConfigLoader.js'
 import Logger from '../prototypes/Logger.js';
 
 
-Object.prototype.allKeys = function(object) {
+Object.allKeys = function(object) {
     let list = [];
 
     for (let key in object) {

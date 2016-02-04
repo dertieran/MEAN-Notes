@@ -1,4 +1,5 @@
-import NetworkService from 'services/NetworkService.js';
+import NetworkRequest from '../prototypes/NetworkRequest.js';
+import { Make } from './make.js';
 
 export var ConfigLoader = function(){
     return Promise.all([
@@ -8,5 +9,5 @@ export var ConfigLoader = function(){
 }
 
 let load = function(url){
-    return NetworkService.fetch(url, null, {method:'GET'});
+    return Make(NetworkRequest)(url, {method:'GET'}).send();
 }

@@ -1,0 +1,31 @@
+<md-dialog>
+    <md-dialog-content class="md-margin" layout="column">
+        <md-input-container style="margin: 18px 0;">
+            <label for="note_title">Note Title</label>
+            <input type="text" name="note_title" ng-model="note.title">
+        </md-input-container>
+
+        <md-input-container>
+            <label for="note_content">Note content</label>
+            <textarea name="note_content" rows="100" ng-model="note.content"></textarea>
+        </md-input-container>
+
+        <div layout>
+            <md-datepicker ng-model="note.startdate" md-placeholder="Start Date" flex="50"></md-datepicker>
+            <md-datepicker ng-model="note.enddate" md-placeholder="End Date" flex="50"></md-datepicker>
+        </div>
+
+        <md-chips ng-model="note.categories"
+            placeholder="+Category"
+            secondary-placeholder="Enter a category">
+            <md-chip-template>
+                <span>{{$chip}}</span>
+            </md-chip-template>
+        </md-chips>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex=""></span>
+        <md-button ng-click="$mdDialog.hide()">Cancel</md-button>
+        <md-button ng-click="saveNote()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,5 +1,5 @@
-import { Make } from 'modules/make.js';
-import Logger from 'prototypes/Logger.js';
+import { Make } from '../modules/make.js';
+import Logger from '../prototypes/Logger.js';
 
 let logger = Make(Logger)('EventTarget');
 

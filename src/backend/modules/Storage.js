@@ -56,7 +56,7 @@ let Interface =  {
                     query = item._id ? { _id : item._id } : item;
                 }
 
-                logger.log('save query', collection, item);
+                logger.log('save query', collection, query, item);
 
 				db.collection(collection).updateOne(query, item, {
 					upsert : true
