@@ -1,6 +1,9 @@
 import { application } from '../../modules/angular.js';
+import CategoryService from '../../services/CategoryService.js';
 
-application.controller("SideMenuController", ['$scope', function($scope) {
+application.controller("SideMenuController", ['$scope', '$mdDialog', function($scope, $mdDialog) {
+
+
 
     $scope.categories = [
         {
@@ -17,6 +20,7 @@ application.controller("SideMenuController", ['$scope', function($scope) {
         }
     ];
 
+
     $scope.add = function() {
         $scope.categories.push($scope.newCategory);
         $scope.newCategory =
@@ -28,6 +32,11 @@ application.controller("SideMenuController", ['$scope', function($scope) {
 
     $scope.delete = function(category) {
         $scope.categories.splice( $scope.categories.indexOf(category), 1 );
+    };
+
+
+    $scope.openDialog = function(event) {
+        CategoryService.categoryEditor($mdDialog, event).then(() => $mdDialog.hide());
     };
 
 }]);

@@ -1,0 +1,23 @@
+<md-dialog>
+    <md-dialog-content class="md-margin" layout="column">
+        <md-input-container style="margin: 18px 0;">
+            <label for="note_title">Category Title</label>
+            <input type="text" name="note_title" ng-model="note.title">
+        </md-input-container>
+
+
+        <div><label >Choose color</label></div>
+        <hr>
+        <div layout>
+            <picker color="color"></picker>
+        </div>
+
+
+
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex=""></span>
+        <md-button ng-click="$mdDialog.hide()">Cancel</md-button>
+        <md-button ng-click="saveNote()">Save</md-button>
+    </md-dialog-actions>
+</md-dialog>
