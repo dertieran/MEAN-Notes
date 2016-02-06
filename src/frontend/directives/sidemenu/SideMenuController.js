@@ -4,21 +4,13 @@ import CategoryService from '../../services/CategoryService.js';
 application.controller("SideMenuController", ['$scope', '$mdDialog', function($scope, $mdDialog) {
 
 
+    CategoryService.on('categoriesAvailable', categoryList => {
+        $scope.categories = categoryList;
+        $scope.$apply();
+    });
 
-    $scope.categories = [
-        {
-            name: "Category 1",
-            color: "#c72222"
-        },
-        {
-            name: "Category 2",
-            color: "#239eea"
-        },
-        {
-            name: "Category 3",
-            color: "#3fbe0e"
-        }
-    ];
+    CategoryService.getCategories();
+
 
 
     $scope.add = function() {
@@ -36,7 +28,7 @@ application.controller("SideMenuController", ['$scope', '$mdDialog', function($s
 
 
     $scope.openDialog = function(event) {
-        CategoryService.categoryEditor($mdDialog, event).then(() => $mdDialog.hide());
+        CategoryService.categoryEditor($mdDialog, event);
     };
 
 }]);
