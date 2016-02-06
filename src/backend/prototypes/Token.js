@@ -27,7 +27,7 @@ let Token = Make({
             if (error){
                 logger.error(error);
             } else {
-                bcrypt.hash(this.userID, salt, null, (error, hash) => {
+                bcrypt.hash(Date.now, salt, null, (error, hash) => {
                     if (error){
                         logger.error(error);
                     } else {
