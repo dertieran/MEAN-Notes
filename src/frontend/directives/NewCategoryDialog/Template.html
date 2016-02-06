@@ -5,14 +5,22 @@
             <input type="text" name="note_title" ng-model="note.title">
         </md-input-container>
 
+        <md-menu class="no-padding">
+            <div layout ng-click="$mdOpenMenu($event)" md-menu-origin>
+                <md-input-container flex>
+                    <label>Category Color</label>
+                    <input type="text" ng-model="category.color">
+                </md-input-container>
 
-        <div><label >Choose color</label></div>
-        <hr>
-        <div layout>
-            <picker color="color"></picker>
-        </div>
+                <md-input-container>
+                    <div class="color-preview md-whiteframe-1dp " ng-style="{ 'background-color' : category.color }"></div>
+                </md-input-container>
+            </div>
 
-
+            <md-menu-content width="4">
+                <color-picker ng-model="category.color"></color-picker>
+            </md-menu-content>
+        </md-menu>
 
     </md-dialog-content>
     <md-dialog-actions layout="row">

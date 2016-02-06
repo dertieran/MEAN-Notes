@@ -7,6 +7,8 @@ let CategoryService = Make({
 
     _currentCategoryList : [],
 
+    _currentCategory : null,
+
     _make : function(){
         EventTarget._make.apply(this);
 
@@ -52,6 +54,10 @@ let CategoryService = Make({
             fullscreen: false,
         });
     },
+
+    getCurrentCategory : function(){
+        return this._currentCategory;
+    }
 
 }, EventTarget)();
 

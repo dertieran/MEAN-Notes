@@ -65,7 +65,7 @@ gulp.task('compile', ['copyBuildStage'], function(){
 gulp.task('copyToDist', ['copyBuildStage', 'compile'],  function(){
 	return es.merge(gulp.src(temp + 'backend/**')
 						.pipe(gulp.dest(distServer)),
-			        gulp.src([temp + 'frontend/**', '!' + temp + 'frontend/**/*js'])
+			        gulp.src([temp + 'frontend/**', '!' + temp + 'frontend/**/*.js'])
 						.pipe(gulp.dest(distClient))
 				    );
 });
@@ -79,19 +79,19 @@ gulp.task('copyDependecies', function(){
 		gulp.src(['node_modules/angular-material/angular-material.min.css'])
 			.pipe(gulp.dest(distClient + 'stylesheets/angular')),
 
+		gulp.src(['node_modules/angular-color-picker/angular-color-picker.css'])
+			.pipe(gulp.dest(distClient + 'stylesheets')),
+
         gulp.src(['node_modules/octicons/octicons/*.*'])
             .pipe(gulp.dest(distClient + 'stylesheets/octicons/')),
 
-        gulp.src(['node_modules/ng-picky/ng-picky.css'])
-            .pipe(gulp.dest(distClient + 'stylesheets/')),
-
-        gulp.src(['node_modules/ng-picky/ng-picky.js'])
-            .pipe(gulp.dest(distClient + 'libs/')),
+        gulp.src(['node_modules/angular-color-picker/angular-color-picker.js'])
+            .pipe(gulp.dest(temp + 'frontend/libs/')),
 
 		gulp.src(['node_modules/angular/angular.min.js',
 				  'node_modules/angular-aria/angular-aria.min.js',
 				  'node_modules/angular-animate/angular-animate.min.js',
-				  'node_modules/angular-material/angular-material.min.js',
+				  'node_modules/angular-material/angular-material.js',
                   'node_modules/angular-route/angular-route.min.js',
                   'node_modules/angular-sanitize/angular-sanitize.min.js'])
 			.pipe(gulp.dest(temp + 'frontend/libs/angular/'))

@@ -58,3 +58,22 @@ md-card-title .md-menu {
 md-card-title-text {
     justify-content: center;
 }
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.color-preview {
+    font-size: 1.8rem;
+    width: 1em;
+    height: 1em;
+    border: .3rem solid #fff;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-color: #fff;
+    margin: 0 .25rem;
+}
+
+label {
+    padding: 0;
+}
