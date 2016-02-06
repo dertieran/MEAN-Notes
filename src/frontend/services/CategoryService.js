@@ -1,6 +1,6 @@
 import { Make } from '../modules/make.js';
 import EventTarget from '../prototypes/EventTarget.js';
-import '../directives/newCategoryDialog/NewCategoryDialogController.js';
+import '../directives/NewCategoryDialog/NewCategoryDialogController.js';
 
 let CategoryService = Make({
 
