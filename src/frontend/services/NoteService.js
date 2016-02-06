@@ -2,6 +2,7 @@ import { Make } from '../modules/make.js';
 import EventTarget from '../prototypes/EventTarget.js';
 import NetworkService from './NetworkService.js';
 import '../directives/NewNoteDialog/NewNoteDialogController.js';
+import Note from '../prototypes/Note.js';
 
 let NoteService = Make({
 
@@ -11,8 +12,10 @@ let NoteService = Make({
 
     getNotes : function(amount, start = 0) {
         NetworkService.resource({ resource : `note/all`, method : 'GET' }).then(dataList => {
-            this._currentNoteList = dataList;
-            this.emit('notesAvailable', dataList);
+            this._currentNoteList = dataList.map(note => {
+                return Make(note, Note).get();
+            });
+            this.emit('notesAvailable', this._currentNoteList);
         });
     },
 
@@ -23,7 +26,7 @@ let NoteService = Make({
     noteEditor : function($mdDialog, event, note){
         this._currentNote = note;
 
-        $mdDialog.show({
+        return $mdDialog.show({
             controller: 'NewNoteDialogController',
             templateUrl: './directives/NewNoteDialog/Template.html',
             parent: angular.element(document.body),
@@ -42,7 +45,9 @@ let NoteService = Make({
             request = NetworkService.resource({ resource : `note/${note._id}`, method : 'PUT', data : note })
         }
 
-        request.then(data => {
+        return request.then(data => {
+            data = Make(data, Note).get();
+
             if (note._id) {
                 let index = this._currentNoteList.findIndex(item => {
                     return item._id === data._id;

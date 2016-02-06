@@ -28,7 +28,7 @@ md-grid-list md-card-content, md-grid-list md-card-content div {
 }
 
 .main-fab {
-    position: absolute;
+    position: fixed;
     right: 2rem;
     bottom: 2rem;
 }
@@ -39,4 +39,22 @@ md-datepicker {
 
 md-chips {
     padding-bottom: 1rem;
+}
+
+md-chips.md-readonly {
+    padding-bottom: 0;
+}
+
+md-chips.md-readonly .md-chips {
+    box-shadow: none;
+    display: flex;
+    overflow: auto;
+}
+
+md-card-title .md-menu {
+    padding: 0;
+}
+
+md-card-title-text {
+    justify-content: center;
 }

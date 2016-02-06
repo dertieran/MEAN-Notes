@@ -69,7 +69,7 @@ let controller = function(controller){
  * @param {string} port
  * @return {Promise}
  */
-let start = function(port){
+let start = function(port, ip){
 	if (!server) {
 		let controlerList = Glob.sync('./dist/**/controller/**/*.js');
 
@@ -81,7 +81,7 @@ let start = function(port){
 		});
 
 		server = new Promise(success => {
-			let server = app.listen(port, () => {
+			let server = app.listen(port, ip, () => {
 				console.log(`SERVER UP AND RUNNING LISTENING ON ${port}!!`);
 				success(server)
 			});

@@ -17,9 +17,18 @@
 
         <md-chips ng-model="note.categories"
             placeholder="+Category"
-            secondary-placeholder="Enter a category">
-            <md-chip-template>
-                <span>{{$chip}}</span>
+            md-require-match="true"
+            md-transform-chip="autoComplete.transform($chip)">
+            <md-autocomplete
+                md-selected-item="autoComplete.selectedItem"
+                md-search-text="autoComplete.text"
+                md-items="category in autoComplete.filterCategories()"
+                md-item-text="category.name"
+                placeholder="Enter a Category">
+                    <span md-highlight-text="autoComplete.text">{{category.name}}</span>
+            </md-autocomplete>
+            <md-chip-template app-chip-bg="getChipColor($chip)">
+                {{$chip}}
             </md-chip-template>
         </md-chips>
     </md-dialog-content>

@@ -14,13 +14,15 @@ application.controller('NoteGridController', ['$scope', '$mdDialog', function($s
         if (note.content.length < 600) {
             return 3;
         } else if (note.content.length < 1000) {
-            return 4;
+            return 6;
+        } else if (note.content.length < 1500) {
+            return 9;
         } else {
-            return 5;
+            return 12;
         }
     };
 
     $scope.openDialog = function(event) {
-        NoteService.noteEditor($mdDialog, event).then(() => $mdDialog.hide());
+        NoteService.noteEditor($mdDialog, event);
     };
 }])

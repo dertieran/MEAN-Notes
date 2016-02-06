@@ -82,7 +82,7 @@ let EventTarget = {
         if (type in this._eventTypes) {
             let config = this._eventTypes[type];
 
-            if (config.presistent) {
+            if (config.persistent) {
                 config.last = data || true;
             } else if (config.onlyOnce && !config.last) {
                 config.last = data || true;

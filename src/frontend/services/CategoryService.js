@@ -1,14 +1,21 @@
 import { Make } from '../modules/make.js';
 import EventTarget from '../prototypes/EventTarget.js';
-import NetworkService from './NetworkService.js';
 import '../directives/newCategoryDialog/NewCategoryDialogController.js';
 
 let CategoryService = Make({
 
 
-    _currentCategoryList : null,
+    _currentCategoryList : [],
 
-    getCategories : function(amount, start = 0) {
+    _make : function(){
+        EventTarget._make.apply(this);
+
+        this.defineEvent('categoriesAvailable', {
+            persistent : true
+        });
+    },
+
+    getCategories : function() {
 
         let categoryList = [
             {
@@ -30,7 +37,9 @@ let CategoryService = Make({
         this.emit('categoriesAvailable', categoryList)
     },
 
-
+    getCategory : function(name) {
+        return this._currentCategoryList.find(category => category.name == name);
+    },
 
     categoryEditor : function($mdDialog, event){
 

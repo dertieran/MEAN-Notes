@@ -78,6 +78,28 @@ let NoteController = Make({
                 error : 404
             });
         }
+    },
+
+    delete : function(request, response){
+        let { id } = request.params;
+
+        if (id) {
+            Storage.deleteItem(this.collection, { _id : id }).then(() => {
+                response.send({
+                    status : true
+                });
+            }, status => {
+                response.status(500).send({
+                    error : 500,
+                    status : status
+                });
+            });
+        } else {
+            response.status(404).send({
+                error : 404,
+                status : 'resource not found'
+            })
+        }
     }
 
 }, Controller).get();

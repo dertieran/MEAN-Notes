@@ -78,6 +78,11 @@ let Interface =  {
      * @return {Promise<Object>}
      */
     deleteItem : function(collection, query) {
+
+        if (query._id) {
+            query._id = ObjectId(query._id);
+        }
+
         return db.then(db => {
 			return new Promise((success, failure) => {
                 logger.log('delete query', collection, query);
