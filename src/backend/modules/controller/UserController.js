@@ -3,12 +3,10 @@ import { Make } from '../../modules/make.js';
 import Controller from '../../prototypes/Controller.js';
 import User from '../../prototypes/User.js';
 import Storage from '../../modules/Storage.js';
-import Logger from '../../prototypes/Logger.js';
 
-let logger = Make(Logger)('User Controller');
 
 let UserController = Make({
-    route : '/api/v1/user/:id?',
+    route : '/api/v1/user/create/:id?',
 
     name : 'UserController',
 
@@ -16,8 +14,6 @@ let UserController = Make({
 
     post : function(request, response){
         let { body: model } = request;
-
-        logger.log(model);
 
         if (!model._id) {
 

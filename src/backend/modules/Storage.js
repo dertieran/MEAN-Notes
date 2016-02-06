@@ -111,7 +111,7 @@ let Interface =  {
 				let list = [];
 				let cursor = db.collection(collection).find(find).sort(sort);
 
-                logger.log('looking for', find, 'orderd by', sort);
+                logger.log('looking in ', collection, ' for', find, 'orderd by', sort);
 
 				cursor.each((error, doc) => {
 					if (error) {
