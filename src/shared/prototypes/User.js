@@ -23,11 +23,11 @@ let User = Make({
     * @constructs
     */
     _make : function(){
-        bcrypt.genSalt(5, function(error, salt) {
+        bcrypt.genSalt(5, (error, salt) => {
             if (error){
                 logger.error(error);
             } else {
-                bcrypt.hash(this.password, salt, null, function(error, hash) {
+                bcrypt.hash(this.password, salt, null, (error, hash) => {
                     if (error){
                         logger.error(error);
                     } else {

@@ -3,9 +3,12 @@ import { Make } from '../../modules/make.js';
 import Controller from '../../prototypes/Controller.js';
 import User from '../../prototypes/User.js';
 import Storage from '../../modules/Storage.js';
+import Logger from '../../prototypes/Logger.js';
+
+let logger = Make(Logger)('User Controller');
 
 let UserController = Make({
-    route : '/api/v1/User/',
+    route : '/api/v1/user/:id?',
 
     name : 'UserController',
 
@@ -14,12 +17,14 @@ let UserController = Make({
     post : function(request, response){
         let { body: model } = request;
 
+        logger.log(model);
+
         if (!model._id) {
 
             let user = Make({
                 email : model.email,
                 password : model.password
-            }, User).get();
+            }, User)();
 
             Storage.saveItem(this.collection, user)
                 .then(result => {
@@ -30,12 +35,18 @@ let UserController = Make({
                     } else {
                         return Promise.reject('User already exists!');
                     }
-                }, error => this.logger.error(error))
+                }, error => {
+                    response.status(409).send({
+                        error : 409,
+                        status : 'resource already exists'
+                    });
+                    this.logger.error(error);
+                })
 
                 .then(model => {
                     response.send(model);
                 }, () => {
-                    response.status(409).end({
+                    response.status(409).send({
                         error : 409,
                         status : 'resource already exists'
                     });
@@ -46,6 +57,15 @@ let UserController = Make({
                 status : 'resource can\'t contain field "_id"',
             });
         }
+    },
+
+    /**
+    * @constructs
+    */
+    _make : function(){
+        Controller._make.apply(this);
+        this.logger.log("setting index to email!");
+        Storage.setIndex(this.collection, ['email']);
     },
 
 }, Controller).get();
