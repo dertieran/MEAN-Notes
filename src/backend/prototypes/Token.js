@@ -20,6 +20,11 @@ let Token = Make({
     token : null,
 
     /**
+    * @type {string}
+    */
+    created : null,
+
+    /**
     * @constructs
     */
     _make : function(){
@@ -36,6 +41,7 @@ let Token = Make({
                 });
             }
         });
+        this.created = Date.now();
     }
 
 }, Model).get();

@@ -6,18 +6,16 @@ import Express from 'express';
 import Path from 'path';
 import Glob from 'glob';
 import bodyParser from 'body-parser';
-import passport from 'passport';
-import {BasicStrategy} from 'passport-http';
 
 import { Make, hasPrototype } from './make.js';
 import Controller from '../prototypes/Controller.js';
 import ResponseHandler from '../prototypes/ResponseHandler.js';
-// import AuthorizeManager from './AuthorizeManager.js';
+import AuthorizeManager from './AuthorizeManager.js';
 
 let app = Express();
 
 app.use(bodyParser.json());
-// app.use(AuthorizeManager.request.bind(AuthorizeManager, true));
+app.use(AuthorizeManager.request.bind(AuthorizeManager, true));
 
 
 let server = null;
