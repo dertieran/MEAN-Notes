@@ -20,6 +20,11 @@ let User = Make({
     password : null,
 
     /**
+    * @type {string}
+    */
+    categories : null,
+
+    /**
     * @constructs
     */
     _make : function(){
@@ -36,6 +41,7 @@ let User = Make({
                 });
             }
         });
+        this.categories = [];
     },
 
     verifyPassword : function(password, callback) {

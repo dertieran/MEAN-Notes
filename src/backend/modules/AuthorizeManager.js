@@ -13,19 +13,22 @@ let AuthorizeManager = {
         request.authenticated = false;
 
         if (token) {
-                Storage.findItems('tokens', { token : token }).then(item => {
+                Storage.findItems({ collection : 'tokens', find : {token : token}}).then(item => {
 
-                    if (Object.keys(item).length === 0){
-                        if (Date.now - item.created <= (24*60*60*1000)){
+                    if (Object.keys(item).length !== 0){
                             request.authenticated = true;
+                            request.userID = item.userID;
+                            
 
-                            item.created = Date.now();
+                            logger.log('Authenticated')
+
+                            item.lastModifiedDate = new Date();
                             Storage.saveItem('tokens', item);
-                        }
                     }
 
             }).then(() => next());
         } else {
+            logger.log('Not Authenticated')
             next();
         }
     }

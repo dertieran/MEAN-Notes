@@ -53,6 +53,15 @@ let UserController = Make({
         })
     },
 
+    /**
+    * @constructs
+    */
+    _make : function(){
+        Controller._make.apply(this);
+        this.logger.log("setting index to lastModifiedDate!");
+        Storage.setIndex(this.collection, ['lastModifiedDate'], {expireAfterSeconds: 86400 });
+    },
+
 }, Controller).get();
 
 export default UserController;

@@ -22,7 +22,7 @@ let Token = Make({
     /**
     * @type {string}
     */
-    created : null,
+    lastModifiedDate : null,
 
     /**
     * @constructs
@@ -41,7 +41,7 @@ let Token = Make({
                 });
             }
         });
-        this.created = Date.now();
+        this.lastModifiedDate = new Date();
     }
 
 }, Model).get();
