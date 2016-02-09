@@ -7,7 +7,7 @@ import Storage from '../../modules/Storage.js';
 
 
 let TokenController = Make({
-    route : '/api/v1/user/login/:id?',
+    route : '/api/v1/session',
 
     name : 'TokenController',
 

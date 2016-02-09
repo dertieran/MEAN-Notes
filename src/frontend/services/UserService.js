@@ -37,7 +37,7 @@ let UserService = Make({
 
         if (this._token) {
             NetworkService.resource({ 
-                resource : `user/login/`,
+                resource : `session`,
                 method : 'GET',
             }).then(user => {
                 this._userID = user.userID;

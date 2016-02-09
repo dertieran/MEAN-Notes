@@ -7,7 +7,7 @@ import TokenController from './TokenController.js';
 
 
 let UserController = Make({
-    route : '/api/v1/user/create/:id?',
+    route : '/api/v1/user',
 
     name : 'UserController',
 
