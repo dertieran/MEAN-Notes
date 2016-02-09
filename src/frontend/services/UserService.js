@@ -17,6 +17,7 @@ let UserService = Make({
         return NetworkService.resource({ resource : `user/create/`, method : 'POST', data : input }).then(user => {
             this._userID = user.userID;
             this._token = user.token;
+            sessionStorage.setItem('mean-notes.token', this._token);
 
             this.emit('tokenReady', this._token);
         });
@@ -26,6 +27,7 @@ let UserService = Make({
         return NetworkService.resource({ resource : `user/login/`, method : 'POST', data : input }).then(user => {
             this._userID = user.userID;
             this._token = user.token;
+            sessionStorage.setItem('mean-notes.token', this._token);
 
             this.emit('tokenReady', this._token);
         });
@@ -33,17 +35,26 @@ let UserService = Make({
 
     signIn : function($mdDialog, event){
 
-        NetworkService.resource({ resource : `user/login/`, method : 'GET' }).then(user => {
-            this._userID = user.userID;
-        }, () => {
-            return $mdDialog.show({
-                controller: 'SignInDialogController',
-                templateUrl: './directives/SignInDialog/Template.html',
-                parent: angular.element(document.body),
-                targetEvent: event,
-                clickOutsideToClose:false,
-                fullscreen: true,
-            });
+        if (this._token) {
+            NetworkService.resource({ 
+                resource : `user/login/`,
+                method : 'GET',
+            }).then(user => {
+                this._userID = user.userID;
+            }, () => this.openLoginDialog($mdDialog, event));
+        } else {
+            this.openLoginDialog($mdDialog, event)
+        }
+    },
+
+    openLoginDialog : function($mdDialog, event){
+        return $mdDialog.show({
+            controller: 'SignInDialogController',
+            templateUrl: './directives/SignInDialog/Template.html',
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose:false,
+            fullscreen: true,
         });
     },
 
@@ -52,6 +63,7 @@ let UserService = Make({
     */
     _make : function(){
         EventTarget._make.apply(this);
+
         if(this._token){
             this.emit('tokenReady');
         }
