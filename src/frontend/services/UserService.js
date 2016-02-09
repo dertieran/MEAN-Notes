@@ -18,7 +18,7 @@ let UserService = Make({
             this._userID = user.userID;
             this._token = user.token;
 
-            this.emit('tokenReady');
+            this.emit('tokenReady', this._token);
         });
     },
 
@@ -27,7 +27,7 @@ let UserService = Make({
             this._userID = user.userID;
             this._token = user.token;
 
-            this.emit('tokenReady');
+            this.emit('tokenReady', this._token);
         });
     },
 
