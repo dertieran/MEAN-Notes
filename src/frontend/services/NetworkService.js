@@ -1,10 +1,11 @@
 import { Make } from '../modules/make.js';
 import NetworkRequest from '../prototypes/NetworkRequest.js';
 import Logger from '../prototypes/Logger.js';
+import UserService from './UserService.js'
 
 /**
- * @type {Logger}
- */
+* @type {Logger}
+*/
 let logger = Make(Logger)('NetworkService');
 
 let NetworkService = {
@@ -28,9 +29,19 @@ let NetworkService = {
 
         let request = Make(NetworkRequest)(url, config);
 
-        // if (config.authenticate) {
-        //     AuthenticationService.authenticate(request, AuthenticationService.MMI);
-        // }
+        let token = UserService.getToken();
+
+        if (config.authenticate && !token) {
+            token = new Promise(success => {
+                UserService.on('tokenReady', newToken => {
+                    success(newToken);
+                });
+            });
+        }
+
+        if(token){
+            request.setHeader('Auth-Token', token);
+        }
 
         if (data) {
             request.body(data);
@@ -96,18 +107,20 @@ let NetworkService = {
     },
 
     /**
-     * Fetches an resouce from our REST API. Similar to apiCall but also accepts the method for the request.
-     *
-     * @param {string} resouce
-     * @param {string} method
-     * @param {Object} data
-     * @return {Promise<Object>}
-     */
-    resource : function({ resource, method='GET', data=null }){
+    * Fetches an resouce from our REST API. Similar to apiCall but also accepts the method for the request.
+    *
+    * @param {string} resouce
+    * @param {string} method
+    * @param {Object} data
+    * @return {Promise<Object>}
+    */
+    resource : function({ resource, method='GET', data=null, authenticate=false }){
+
+
         let p = this._buildApiUrl(1, resource).then(url => {
             logger.log('fetching REST resource from -> ', method, url);
 
-            return this.fetch(url, data, { method : method, authenticate : true });
+            return this.fetch(url, data, { method : method, authenticate : authenticate });
         });
 
         p.catch(error => logger.error(error));

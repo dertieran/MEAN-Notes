@@ -6,7 +6,7 @@ import Token from '../../prototypes/Token.js';
 import Storage from '../../modules/Storage.js';
 
 
-let UserController = Make({
+let TokenController = Make({
     route : '/api/v1/user/login/:id?',
 
     name : 'TokenController',
@@ -53,6 +53,18 @@ let UserController = Make({
         })
     },
 
+    get : function(request, response) {
+        if (request.authenticated){
+            response.send({userID : request.userID, token : request.header('Auth-Token')});
+        } else {
+            response.status(401).send({
+                error : 401,
+                status : 'Unauthorized'
+            });
+        }
+
+    },
+
     /**
     * @constructs
     */
@@ -64,4 +76,4 @@ let UserController = Make({
 
 }, Controller).get();
 
-export default UserController;
+export default TokenController;

@@ -1,0 +1,19 @@
+<md-dialog>
+    <md-dialog-content class="md-margin md-padding" layout="column">
+        <h2 class="md-display-1">Login for MEAN-Notes</h2>
+        <md-input-container>
+            <label>Email</label>
+            <md-icon>mail_outline</md-icon>
+            <input ng-model="user.email" type="email">
+        </md-input-container>
+        <md-input-container>
+            <label>Password</label>
+            <md-icon>lock_outline</md-icon>
+            <input ng-model="user.password" type="password">
+        </md-input-container>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" layout-xs="column" class="md-padding">
+        <md-button flex-gt-xs="50" flex-xs="100" ng-click="login(user)">Login</md-button>
+        <md-button flex-gt-xs="50" flex-xs="100" ng-click="register(user)">Register</md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -3,6 +3,7 @@ import { Make } from '../../modules/make.js';
 import Controller from '../../prototypes/Controller.js';
 import User from '../../prototypes/User.js';
 import Storage from '../../modules/Storage.js';
+import TokenController from './TokenController.js';
 
 
 let UserController = Make({
@@ -39,8 +40,8 @@ let UserController = Make({
                     this.logger.error(error);
                 })
 
-                .then(model => {
-                    response.send(model);
+                .then(() => {
+                    TokenController.post(request, response);
                 }, () => {
                     response.status(409).send({
                         error : 409,
