@@ -2,6 +2,9 @@
 Project made for SRH Heidelberg Module Projektarbeit - Bachelor of Science: Applied Computer Science
 
 
+![alt text](https://github.com/DerTieran/MEAN-Notes/blob/master/doc/Dokumentation/res/logo/FinalLogo.png "Logo Title Text 1")
+
+
 ### Idea behind this project
 We are creating a Note Collection Webservice using the MEAN Stack.
 
