@@ -1,8 +1,7 @@
 # MEAN-Notes
 Project made for SRH Heidelberg Module Projektarbeit - Bachelor of Science: Applied Computer Science
 
-
-![alt text](https://github.com/DerTieran/MEAN-Notes/blob/master/doc/Dokumentation/res/logo/FinalLogo.png "Logo Title Text 1")
+<a href="url"><img src="https://github.com/DerTieran/MEAN-Notes/blob/master/doc/Dokumentation/res/logo/FinalLogo.png" align="right" height="250" width="250" ></a>
 
 
 ### Idea behind this project
@@ -11,6 +10,7 @@ We are creating a Note Collection Webservice using the MEAN Stack.
 Forget about OneNote, Evernote and iNote (or whatever Apple calls their Note Service) - this will be the last Note Collection Service you'll ever need!
 
 Stay calm and follow us on Facebook, Twitter, Instagram, Stackoverflow, 4chan, Steam and all the other platforms!
+
 
 ### Requirements
 - [Node.js (with NPM)](https://www.npmjs.com)
