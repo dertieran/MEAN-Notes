@@ -11,12 +11,28 @@ let NoteService = Make({
     _currentNoteList : null,
 
     getNotes : function(amount, start = 0) {
-        NetworkService.resource({ resource : `note/all`, method : 'GET' }).then(dataList => {
+        NetworkService.resource({ 
+            resource : `note/all`,
+            method : 'GET',
+            data : { user : 1 },
+            authenticate : true 
+        }).then(dataList => {
             this._currentNoteList = dataList.map(note => {
                 return Make(note, Note).get();
             });
             this.emit('notesAvailable', this._currentNoteList);
         });
+    },
+
+    filterNotes : function(categories) {
+        NetworkService.resource({ resource : `note/all`, method : 'GET', data : {
+            user : 1,
+            categories : categories
+        }})
+        .then(list => {
+            this._currentNoteList = list.map(note => Make(note, Note).get());
+            this.emit('notesAvailable', this._currentNoteList);
+        })
     },
 
     getCurrentNote : function(){
@@ -38,6 +54,8 @@ let NoteService = Make({
 
     saveNote : function(note){
         let request = null;
+
+        note.user = '1';
 
         if (!note._id) {
             request = NetworkService.resource({ resource : 'note', method : 'POST', data : note });

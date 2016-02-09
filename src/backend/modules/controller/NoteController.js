@@ -77,11 +77,20 @@ let NoteController = Make({
     },
 
     get : function(request, response) {
-        if (request.authenticated){
+        if (request.authenticated) {
             let { id } = request.params;
+            let { user, categories } = request.query;
+
+            let query = {
+                user : user,
+            };
+
+            if (categories) {
+                query.categories = { $all : categories };
+            }
 
             if (id === 'all') {
-                Storage.findItems({ collection : this.collection, find : {}, forceList : true })
+                Storage.findItems({ collection : this.collection, find : query, forceList : true })
                 .then(list => {
                     response.send(list);
                 });

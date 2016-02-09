@@ -74,6 +74,7 @@ md-card-title-text {
     margin: 0 .25rem;
 }
 
+/* fix for bug in angular material css */
 label {
-    padding: 0;
+    padding: 0 !important;
 }

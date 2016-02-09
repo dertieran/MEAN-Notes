@@ -32,9 +32,9 @@ let NetworkService = {
         let token = UserService.getToken();
 
         if (config.authenticate && !token) {
-            token = new Promise(success => {
-                UserService.on('tokenReady', newToken => {
-                    success(newToken);
+            return new Promise((success, failure) => {
+                UserService.on('tokenReady', () => {
+                    NetworkService.fetch(url, data, config).then(success, failure);
                 });
             });
         }
