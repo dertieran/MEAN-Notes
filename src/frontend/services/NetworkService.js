@@ -69,7 +69,7 @@ let NetworkService = {
     */
     _buildApiUrl : function(version, resource){
         return this.host.then(host => {
-            return `http://${host}/api/v${version}/${resource}`;
+            return `${location.protocol}//${host}/api/v${version}/${resource}`;
         })
 
     },

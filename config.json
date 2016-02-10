@@ -1,5 +1,0 @@
-{
-    "db.host":"Admin:meanadmin2016@ds051645.mongolab.com",
-    "db.port":51645,
-    "db.name":"meannotes"
-}

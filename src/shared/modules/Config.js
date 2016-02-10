@@ -38,7 +38,11 @@ let config = ConfigLoader().then(values => {
 let Config = {
     getServerUrl : function(){
         return this.get('server').then(config => {
-            return `${config.host}:${config.port}`;
+            if (config.port !== 80) {
+                return `${config.host}:${config.port}`;
+            } else {
+                return config.host;
+            }
         })
     },
 
