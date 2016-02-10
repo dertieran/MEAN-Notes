@@ -32,12 +32,6 @@ let UserController = Make({
                     } else {
                         return Promise.reject('User already exists!');
                     }
-                }, error => {
-                    response.status(409).send({
-                        error : 409,
-                        status : 'User already exists!'
-                    });
-                    this.logger.error(error);
                 })
 
                 .then(() => {
