@@ -43,7 +43,7 @@ let UserService = Make({
                 method : 'GET',
             }).then(user => {
                 this._userID = user.userID;
-                
+
                 this.emit('userReady');
             }, () => this.openLoginDialog($mdDialog, event));
         } else {
@@ -67,6 +67,8 @@ let UserService = Make({
     */
     _make : function(){
         EventTarget._make.apply(this);
+
+        this.defineEvent('tokenReady', { persistent : true });
 
         if(this._token){
             this.emit('tokenReady');

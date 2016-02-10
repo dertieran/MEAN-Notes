@@ -5,6 +5,9 @@ import NoteService from '../../services/NoteService.js';
 
 application.controller("SideMenuController", ['$scope', '$mdDialog', function($scope, $mdDialog) {
 
+    $scope.filters = {};
+    $scope.loginDone = false;
+
     UserService.signIn($mdDialog, null);
 
     CategoryService.on('categoriesAvailable', categoryList => {
@@ -12,7 +15,9 @@ application.controller("SideMenuController", ['$scope', '$mdDialog', function($s
         $scope.$apply();
     });
 
-    $scope.filters = {};
+    UserService.on('tokenReady', () => {
+        $scope.loginDone = true;
+    });
 
     if (UserService.userId) {
         CategoryService.getCategories();

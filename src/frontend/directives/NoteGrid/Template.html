@@ -1,4 +1,4 @@
-<div flex class="wrapper">
+<div flex class="wrapper" ng-if="loginDone">
     <md-grid-list md-cols="12" md-gutter=".1rem" md-row-height="5:6">
         <md-grid-tile ng-repeat="note in noteList" md-colspan="{{getCardSize(note)}}"  md-rowspan="{{getCardSize(note)}}">
             <app-note-card ng-model="note" layout flex="grow"></app-note-card>

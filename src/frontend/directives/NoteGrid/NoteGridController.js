@@ -4,9 +4,15 @@ import UserService from '../../services/UserService.js';
 
 application.controller('NoteGridController', ['$scope', '$mdDialog', function($scope, $mdDialog){
 
+    $scope.loginDone = false;
+
     NoteService.on('notesAvailable', noteList => {
         $scope.noteList = noteList;
         $scope.$apply();
+    });
+
+    UserService.on('tokenReady', () => {
+        $scope.loginDone = true;
     });
 
     if (UserService.userId) {

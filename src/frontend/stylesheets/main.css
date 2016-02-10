@@ -74,6 +74,10 @@ md-card-title-text {
     margin: 0 .25rem;
 }
 
+md-sidenav {
+    height: 100%;
+}
+
 /* fix for bug in angular material css */
 label {
     padding: 0 !important;
