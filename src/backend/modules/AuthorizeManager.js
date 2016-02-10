@@ -17,8 +17,8 @@ let AuthorizeManager = {
 
                     if (Object.keys(item).length !== 0){
                             request.authenticated = true;
-                            request.userID = item.userID;
-                            
+                            request.userId = item.userID;
+
 
                             logger.log('Authenticated')
 

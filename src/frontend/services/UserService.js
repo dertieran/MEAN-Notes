@@ -20,6 +20,7 @@ let UserService = Make({
             sessionStorage.setItem('mean-notes.token', this._token);
 
             this.emit('tokenReady', this._token);
+            this.emit('userReady');
         });
     },
 
@@ -30,6 +31,7 @@ let UserService = Make({
             sessionStorage.setItem('mean-notes.token', this._token);
 
             this.emit('tokenReady', this._token);
+            this.emit('userReady');
         });
     },
 
@@ -41,6 +43,8 @@ let UserService = Make({
                 method : 'GET',
             }).then(user => {
                 this._userID = user.userID;
+                
+                this.emit('userReady');
             }, () => this.openLoginDialog($mdDialog, event));
         } else {
             this.openLoginDialog($mdDialog, event)
@@ -68,6 +72,10 @@ let UserService = Make({
             this.emit('tokenReady');
         }
     },
+
+    get userId(){
+        return this._userID;
+    }
 
 }, EventTarget)();
 

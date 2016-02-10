@@ -1,5 +1,6 @@
 import { application } from '../../modules/angular.js';
 import NoteService from '../../services/NoteService.js';
+import UserService from '../../services/UserService.js';
 
 application.controller('NoteGridController', ['$scope', '$mdDialog', function($scope, $mdDialog){
 
@@ -8,7 +9,11 @@ application.controller('NoteGridController', ['$scope', '$mdDialog', function($s
         $scope.$apply();
     });
 
-    NoteService.getNotes();
+    if (UserService.userId) {
+        NoteService.getNotes();
+    } else {
+        UserService.on('userReady', NoteService.getNotes.bind(NoteService));
+    }
 
     $scope.getCardSize = function(note){
         if (note.content.length < 600) {

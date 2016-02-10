@@ -12,6 +12,8 @@ let Note = Make({
 
     _make : function(){
         this.categories = [];
+        this.startdate = Date.now();
+        this.enddate = Date.now();
     }
 }, Model).get();
 

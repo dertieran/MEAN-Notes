@@ -7,19 +7,23 @@
     </md-toolbar>
     <md-content layout-padding>
 
+        <md-list>
+            <div layout>
+                <md-subheader class="md-no-sticky" flex>
+                    Categories
+                </md-subheader>
+                <md-button class="md-icon-button" ng-click="openDialog($event)">
+                    <md-icon>add</md-icon>
+                </md-button>
+            </div>
 
-        <md-list-item ng-repeat="category in categories">
-            <md-checkbox ng-model="category.selected"></md-checkbox>
-            <md-icon layout-margin style="color:{{category.color}};font:bold;">color_lens</md-icon>
-            <p>{{category.name}}</p>
-            <md-icon class="md-secondary" ng-click="delete(category)">delete</md-icon>
-        </md-list-item>
-
-        <md-divider></md-divider>
-
-        <md-button class="md-fab md-primary" aria-label="new cat" ng-click="openDialog($event)">
-            <md-icon>edit</md-icon>
-        </md-button>
+            <md-list-item ng-repeat="category in categories">
+                <md-checkbox ng-model="filters[category.name]" ng-change="filterNotes()"></md-checkbox>
+                <md-icon layout-margin style="color:{{category.color}};font:bold;">color_lens</md-icon>
+                <p>{{category.name}}</p>
+                <md-icon class="md-secondary" ng-click="deleteCategory(category)">delete</md-icon>
+            </md-list-item>
+        </md-list>
 
     </md-content>
 </md-sidenav>

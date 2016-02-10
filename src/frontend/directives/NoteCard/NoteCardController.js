@@ -21,4 +21,8 @@ application.controller('NoteCardController', ['$scope', '$mdDialog', function($s
             return '';
         }
     };
+
+    $scope.deleteNote = function(){
+        NoteService.deleteNote($scope.model).then(() => $scope.$apply());
+    }
 }]);

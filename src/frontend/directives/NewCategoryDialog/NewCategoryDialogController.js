@@ -15,10 +15,8 @@ application.controller('NewCategoryDialogController', ['$scope', '$mdDialog', fu
     }
 
     $scope.saveCategory = function(){
-        let category = $scope.category.clone();
-
-        CategoryService.saveCategory(category);
-    }
+        CategoryService.saveCategory($scope.category).then(() => $mdDialog.hide());
+    };
 
 
 }]);

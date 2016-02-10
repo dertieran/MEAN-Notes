@@ -55,7 +55,7 @@ let TokenController = Make({
 
     get : function(request, response) {
         if (request.authenticated){
-            response.send({userID : request.userID, token : request.header('Auth-Token')});
+            response.send({userID : request.userId, token : request.header('Auth-Token')});
         } else {
             response.status(401).send({
                 error : 401,

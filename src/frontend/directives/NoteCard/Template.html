@@ -16,7 +16,7 @@
                     </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                    <md-button>
+                    <md-button ng-click="deleteNote()">
                         <md-icon md-menu-align-target>delete</md-icon>
                         Delete
                     </md-button>
@@ -33,11 +33,13 @@
         </md-chips>
     </md-card-content>
     <md-card-actions layout>
-        <span flex layout layout-align="start center" class="md-caption">{{formatDate(model.startdate)}} - {{formatDate(model.enddate)}}</span>
-        <span>
-            <md-button class="md-icon-button">
-                <md-icon>done</md-icon>
-            </md-button>
-        </div>
+        <span flex layout layout-align="start center" class="md-caption">
+            <span ng-hide="model.startdate == model.enddate">
+                {{formatDate(model.startdate)}} - {{formatDate(model.enddate)}}
+            </span>
+        </span>
+        <md-button class="md-icon-button" ng-disabled="true">
+            <md-icon>done</md-icon>
+        </md-button>
     </md-card-actions>
 </md-card>

@@ -4,15 +4,19 @@ import Controller from '../../prototypes/Controller.js';
 import Storage from '../../modules/Storage.js';
 
 let NoteController = Make({
-    route : '/api/v1/note/:id?',
+    route : '/api/v1/user/:userId/note/:noteId?',
 
     name : 'NoteController',
 
     collection : 'notes',
 
     post : function(request, response){
-        if (request.authenticated){
+        let { userId } = request.params;
+
+        if (request.authenticated && request.userId == userId){
             let { body: model } = request;
+
+            model.user = userId;
 
             if (!model._id) {
                 Storage.saveItem(this.collection, model)
@@ -50,13 +54,15 @@ let NoteController = Make({
     },
 
     put : function(request, response){
-        if (request.authenticated){
+        let { userId, noteId } = request.params;
+
+        if (request.authenticated && userId == request.userId){
             let { body : model } = request;
-            let { id } = request.params;
 
-            model._id = id;
+            model._id = noteId;
+            model.user = userId;
 
-            if (id !== 'all') {
+            if (noteId !== 'all') {
                 Storage.saveItem(this.collection, model)
                 .then(() => {
                     response.send(model);
@@ -77,25 +83,30 @@ let NoteController = Make({
     },
 
     get : function(request, response) {
-        if (request.authenticated) {
-            let { id } = request.params;
-            let { user, categories } = request.query;
+        let { userId, noteId } = request.params;
+
+        this.logger.log(typeof userId, typeof request.userId.toString(), request.authenticated);
+
+        if (request.authenticated && userId == request.userId) {
+            let { categories } = request.query;
 
             let query = {
-                user : user,
+                user : userId,
             };
 
             if (categories) {
+                categories = categories.split(',');
+
                 query.categories = { $all : categories };
             }
 
-            if (id === 'all') {
+            if (noteId === 'all') {
                 Storage.findItems({ collection : this.collection, find : query, forceList : true })
                 .then(list => {
                     response.send(list);
                 });
-            } else if (id) {
-                Storage.getItem(this.collection, id)
+            } else if (noteId) {
+                Storage.getItem(this.collection, noteId)
                 .then(item => {
                     response.send(item);
                 }, () => response.send({ error : 404 }));
@@ -114,17 +125,17 @@ let NoteController = Make({
     },
 
     delete : function(request, response){
-        if (request.authenticated){
-            let { id } = request.params;
+        let { userId, noteId } = request.params;
 
-            if (id) {
-                Storage.deleteItem(this.collection, { _id : id }).then(() => {
+        if (request.authenticated && userId == request.userId){
+            if (noteId) {
+                Storage.deleteItem(this.collection, { _id : noteId }).then(() => {
                     response.send({
                         status : true
                     });
                 }, status => {
-                    response.status(500).send({
-                        error : 500,
+                    response.status(404).send({
+                        error : 404,
                         status : status
                     });
                 });

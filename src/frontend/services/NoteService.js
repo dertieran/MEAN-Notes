@@ -1,6 +1,7 @@
 import { Make } from '../modules/make.js';
 import EventTarget from '../prototypes/EventTarget.js';
 import NetworkService from './NetworkService.js';
+import UserService from './UserService.js';
 import '../directives/NewNoteDialog/NewNoteDialogController.js';
 import Note from '../prototypes/Note.js';
 
@@ -12,10 +13,9 @@ let NoteService = Make({
 
     getNotes : function(amount, start = 0) {
         NetworkService.resource({ 
-            resource : `note/all`,
+            resource : `user/${UserService.userId}/note/all`,
             method : 'GET',
-            data : { user : 1 },
-            authenticate : true 
+            authenticate : true
         }).then(dataList => {
             this._currentNoteList = dataList.map(note => {
                 return Make(note, Note).get();
@@ -25,10 +25,14 @@ let NoteService = Make({
     },
 
     filterNotes : function(categories) {
-        NetworkService.resource({ resource : `note/all`, method : 'GET', data : {
-            user : 1,
-            categories : categories
-        }})
+        NetworkService.resource({
+            resource : `user/${UserService.userId}/note/all`,
+            method : 'GET',
+            authenticate : true,
+            data : {
+                categories : categories
+            },
+        })
         .then(list => {
             this._currentNoteList = list.map(note => Make(note, Note).get());
             this.emit('notesAvailable', this._currentNoteList);
@@ -55,12 +59,10 @@ let NoteService = Make({
     saveNote : function(note){
         let request = null;
 
-        note.user = '1';
-
         if (!note._id) {
-            request = NetworkService.resource({ resource : 'note', method : 'POST', data : note });
+            request = NetworkService.resource({ resource : `user/${UserService.userId}/note`, method : 'POST', data : note });
         } else {
-            request = NetworkService.resource({ resource : `note/${note._id}`, method : 'PUT', data : note })
+            request = NetworkService.resource({ resource : `user/${UserService.userId}/note/${note._id}`, method : 'PUT', data : note })
         }
 
         return request.then(data => {
@@ -71,12 +73,24 @@ let NoteService = Make({
                     return item._id === data._id;
                 });
 
-                this._currentNoteList.splice(index, 1, data);
+                this._currentNoteList[index] = data;
             } else {
                 this._currentNoteList.push(data);
             }
 
             return data;
+        });
+    },
+
+    deleteNote : function(note) {
+        return NetworkService.resource({
+            resource : `user/${UserService.userId}/note/${note._id}`,
+            method : 'DELETE',
+            authenticate : true
+        }).then(() => {
+            let index = this._currentNoteList.findIndex(item => item._id === note._id);
+
+            this._currentNoteList.splice(index, 1);
         });
     }
 
