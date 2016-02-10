@@ -35,7 +35,7 @@ let UserController = Make({
                 }, error => {
                     response.status(409).send({
                         error : 409,
-                        status : 'resource already exists'
+                        status : 'User already exists!'
                     });
                     this.logger.error(error);
                 })
@@ -45,7 +45,7 @@ let UserController = Make({
                 }, () => {
                     response.status(409).send({
                         error : 409,
-                        status : 'resource already exists'
+                        status : 'User already exists!'
                     });
                 });
         } else {

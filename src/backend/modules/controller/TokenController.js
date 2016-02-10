@@ -18,7 +18,7 @@ let TokenController = Make({
 
         Storage.findItems({ collection : 'users', find : {email : model.email }})
         .then(item => {
-            if (Object.keys(item).length === 0){
+            if (!item){
                 response.status(401).send({
                     error : 401,
                     status : 'Unauthorized'
