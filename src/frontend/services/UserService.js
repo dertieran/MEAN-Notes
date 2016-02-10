@@ -14,7 +14,7 @@ let UserService = Make({
     },
 
     register : function(input){
-        return NetworkService.resource({ resource : `user/create/`, method : 'POST', data : input }).then(user => {
+        return NetworkService.resource({ resource : `user`, method : 'POST', data : input }).then(user => {
             this._userID = user.userID;
             this._token = user.token;
             sessionStorage.setItem('mean-notes.token', this._token);
@@ -24,7 +24,7 @@ let UserService = Make({
     },
 
     login : function(input){
-        return NetworkService.resource({ resource : `user/login/`, method : 'POST', data : input }).then(user => {
+        return NetworkService.resource({ resource : `session`, method : 'POST', data : input }).then(user => {
             this._userID = user.userID;
             this._token = user.token;
             sessionStorage.setItem('mean-notes.token', this._token);
