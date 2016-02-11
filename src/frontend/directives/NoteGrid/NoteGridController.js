@@ -15,6 +15,8 @@ application.controller('NoteGridController', ['$scope', '$mdDialog', function($s
         $scope.loginDone = true;
     });
 
+    UserService.on('signOut', () => $scope.loginDone = false);
+
     if (UserService.userId) {
         NoteService.getNotes();
     } else {

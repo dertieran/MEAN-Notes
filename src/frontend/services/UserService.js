@@ -51,6 +51,15 @@ let UserService = Make({
         }
     },
 
+    signOut : function($mdDialog, event){
+        this._token = null;
+        this._userID = null;
+        sessionStorage.removeItem('mean-notes.token');
+        this.emit('signOut');
+
+        this.openLoginDialog($mdDialog, event);
+    },
+
     openLoginDialog : function($mdDialog, event){
         return $mdDialog.show({
             controller: 'SignInDialogController',

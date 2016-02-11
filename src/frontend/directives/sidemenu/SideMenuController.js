@@ -19,6 +19,8 @@ application.controller("SideMenuController", ['$scope', '$mdDialog', function($s
         $scope.loginDone = true;
     });
 
+    UserService.on('signOut', () => $scope.loginDone = false);
+
     if (UserService.userId) {
         CategoryService.getCategories();
     } else {
@@ -42,5 +44,9 @@ application.controller("SideMenuController", ['$scope', '$mdDialog', function($s
     $scope.openDialog = function(event) {
         CategoryService.categoryEditor($mdDialog, event);
     };
+
+    $scope.signOut = function(event){
+        UserService.signOut($mdDialog, event);
+    }
 
 }]);
