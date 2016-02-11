@@ -9,7 +9,7 @@ application.directive('appChipBg', [function(){
         },
 
         link : function(scope, element){
-            scope.watch('color', function(value){
+            scope.$watch('color', function(value){
                 element[0].parentNode.parentNode.style.backgroundColor = value;
             });
 
