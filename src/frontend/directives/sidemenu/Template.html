@@ -20,7 +20,7 @@
                 </md-button>
             </div>
 
-            <md-list-item ng-repeat="category in categories">
+            <md-list-item ng-repeat="category in categories track by category.name">
                 <md-checkbox ng-model="filters[category.name]" ng-change="filterNotes()"></md-checkbox>
                 <md-icon layout-margin style="color:{{category.color}};font:bold;">color_lens</md-icon>
                 <p>{{category.name}}</p>
